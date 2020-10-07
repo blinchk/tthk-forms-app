@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 
 namespace FormsAppProg1
 {
@@ -64,6 +66,8 @@ namespace FormsAppProg1
             tn.Nodes.Add(new TreeNode("PictureBox"));
 
             tn.Nodes.Add(new TreeNode("Kaart-TabControl"));
+
+            tn.Nodes.Add(new TreeNode("MessageBox"));
         }
 
         private void TreeOnAfterSelect(object sender, TreeViewEventArgs e)
@@ -124,15 +128,59 @@ namespace FormsAppProg1
             }
             else if (e.Node.Text == "Kaart-TabControl")
             {
-                _tabControl = new TabControl();
-                _tabControl.Location = new Point(300, 150);
-                _tabControl.Size = new Size(200, 100);
-                string[] tabNames = new string[] {"Esimene", "Teine", "Kolmas"};
-                foreach (string tabName in tabNames)
+                const int MAX_PAGE = 3;
+                string selectTabInputBox = Interaction.InputBox("Sisesta mis leht tuleb avada?\nnt: 1, 2, 3", "Vali leht", "1");
+                if (_tabControl == null)
                 {
-                    _tabControl.TabPages.Add(new TabPage(tabName));
+                    _tabControl = new TabControl();
+                    _tabControl.Location = new Point(300, 150);
+                    _tabControl.Size = new Size(200, 200);
+                    string[] tabNames = new string[] {"Esimene", "Teine", "Kolmas"};
+                    string[] tabImages = new string[] {"george.png", "peppa.png", "dad.png"};
+                    
+                    for (int i = 0; i < 3; i++)
+                    {
+                        _tabControl.TabPages.Add(new TabPage(tabNames[i]));
+                        Bitmap bitmap = new Bitmap(tabImages[i]);
+                        PictureBox picture = new PictureBox()
+                        {
+                            Image = bitmap,
+                            Size = new Size(80,140),
+                            SizeMode = PictureBoxSizeMode.Zoom
+                        };
+                        _tabControl.TabPages[i].Controls.Add(picture);
+                    }
+                    Controls.Add(_tabControl);
                 }
-                Controls.Add(_tabControl);
+                
+                var pagesNumbers = Enumerable.Range(1, MAX_PAGE).Select(x => x.ToString()).ToArray(); // String values 1,2,3 using LINQ
+                if (pagesNumbers.Contains(selectTabInputBox)) // Checks that user's input contains numbers 1, 2, 3
+                {
+                    int receivedTabIndex = Int32.Parse(selectTabInputBox) - 1 ; // User defines tab to open using ints 1, 2, 3
+                    _tabControl.SelectedIndex = receivedTabIndex; // Opens tab, that defines user
+                }
+            }
+            else if (e.Node.Text == "MessageBox")
+            {
+                MessageBox.Show("Hello, World!",
+                    "MessageBox",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                var showInputBox =
+                    MessageBox.Show("Tahad InputBox näha?", "Aken koos nupudega", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (showInputBox == DialogResult.Yes)
+                {
+                    string textInputBox = Interaction.InputBox("Sisesta siia mingi text", "InputBox", "Mingi text");
+                    if (!_lbl.Text.Contains(textInputBox) && textInputBox != "")
+                    {
+                        if (!Controls.Contains(_lbl))
+                        {
+                            Controls.Add(_lbl);
+                        }
+                        _lbl.Text += textInputBox + "\n";
+                        _lbl.Height += 15;
+                    }
+                }
             }
         }
 

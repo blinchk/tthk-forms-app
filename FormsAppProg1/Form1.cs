@@ -7,54 +7,54 @@ namespace FormsAppProg1
 {
     public partial class Form1 : Form
     {
-        private TreeView tree;
-        private Button btn;
-        private Label lbl;
-        private CheckBox box_lbl, box_btn;
-        private RadioButton r1, r2;
-        private TextBox textbox;
-        private PictureBox pictureBox;
+        private TreeView _tree;
+        private Button _btn;
+        private Label _lbl;
+        private CheckBox _boxLbl, _boxBtn;
+        private RadioButton _r1, _r2;
+        private TextBox _textbox;
+        private PictureBox _pictureBox;
         public Form1()
         {
             Height = 500;
             Width = 600;
             Text = "Vorm elementidega";
-            tree = new TreeView();
-            tree.Dock = DockStyle.Left;
+            _tree = new TreeView();
+            _tree.Dock = DockStyle.Left;
             
-            tree.AfterSelect += TreeOnAfterSelect;
+            _tree.AfterSelect += TreeOnAfterSelect;
             
             TreeNode tn = new TreeNode("Elemendid");
             
             tn.Nodes.Add(new TreeNode("Nupp-Button"));
             
-            btn = new Button();
-            btn.Text = "Vajuta siia";
-            btn.Location = new Point(200, 100);
-            btn.Height = 40;
-            btn.Width = 120;
-            btn.Click += BtnOnClick;
+            _btn = new Button();
+            _btn.Text = "Vajuta siia";
+            _btn.Location = new Point(200, 100);
+            _btn.Height = 40;
+            _btn.Width = 120;
+            _btn.Click += BtnOnClick;
             
             tn.Nodes.Add(new TreeNode("Silt-Label"));
             
-            lbl = new Label();
-            lbl.Text = "Tarkvaraarendajad";
-            lbl.Size = new Size(150, 30);
-            lbl.Location = new Point(150, 200);
+            _lbl = new Label();
+            _lbl.Text = "Tarkvaraarendajad";
+            _lbl.Size = new Size(150, 30);
+            _lbl.Location = new Point(150, 200);
             
             tn.Nodes.Add(new TreeNode("Märkeruut-Checkbox"));
             
-            box_btn = new CheckBox();
-            box_btn.Text = "Näita nupp";
-            box_btn.Location = new Point(200, 30);
-            box_btn.CheckedChanged += Box_btnOnCheckedChanged;
+            _boxBtn = new CheckBox();
+            _boxBtn.Text = "Näita nupp";
+            _boxBtn.Location = new Point(200, 30);
+            _boxBtn.CheckedChanged += Box_btnOnCheckedChanged;
             
-            box_lbl = new CheckBox();
-            box_lbl.Text = "Näita silt";
-            box_lbl.Location = new Point(150, 70);
-            box_lbl.CheckedChanged += Box_lblOnCheckedChanged;
-            tree.Nodes.Add(tn);
-            Controls.Add(tree);
+            _boxLbl = new CheckBox();
+            _boxLbl.Text = "Näita silt";
+            _boxLbl.Location = new Point(150, 70);
+            _boxLbl.CheckedChanged += Box_lblOnCheckedChanged;
+            _tree.Nodes.Add(tn);
+            Controls.Add(_tree);
 
             tn.Nodes.Add(new TreeNode("Radionupp-Radiobutton"));
 
@@ -67,29 +67,29 @@ namespace FormsAppProg1
         {
             if (e.Node.Text == "Nupp-Button")
             {
-                Controls.Add(btn);
+                Controls.Add(_btn);
             }
             else if (e.Node.Text == "Silt-Label")
             {
-                Controls.Add(lbl);
+                Controls.Add(_lbl);
             }
             else if (e.Node.Text == "Märkeruut-Checkbox")
             {
-                Controls.Add(box_btn);
-                Controls.Add(box_lbl);
+                Controls.Add(_boxBtn);
+                Controls.Add(_boxLbl);
             }
             else if (e.Node.Text == "Radionupp-Radiobutton")
             {
-                r1 = new RadioButton();
-                r1.Text = "Nupp vasakule";
-                r1.Location = new Point(320, 30);
-                r1.CheckedChanged += new EventHandler(Radiobuttons_Changed);
-                r2 = new RadioButton();
-                r2.Text = "Nupp paremale";
-                r2.Location = new Point(320, 70);
-                r2.CheckedChanged += new EventHandler(Radiobuttons_Changed);
-                Controls.Add(r1);
-                Controls.Add(r2);
+                _r1 = new RadioButton();
+                _r1.Text = "Nupp vasakule";
+                _r1.Location = new Point(320, 30);
+                _r1.CheckedChanged += Radiobuttons_Changed;
+                _r2 = new RadioButton();
+                _r2.Text = "Nupp paremale";
+                _r2.Location = new Point(320, 70);
+                _r2.CheckedChanged += Radiobuttons_Changed;
+                Controls.Add(_r1);
+                Controls.Add(_r2);
             }
             else if (e.Node.Text == "Tekstkast-Textbox")
             {
@@ -98,78 +98,78 @@ namespace FormsAppProg1
                 {
                     text = File.ReadAllText("text.txt");
                 }
-                catch (FileNotFoundException exception)
+                catch
                 {
                     text = "Tekst puudub";
                 }
-                textbox = new TextBox();
-                textbox.Multiline = true;
-                textbox.Text = text;
-                textbox.Location = new Point(300, 300);
-                textbox.Width = 200;
-                textbox.Height = 200;
-                Controls.Add(textbox);
+                _textbox = new TextBox();
+                _textbox.Multiline = true;
+                _textbox.Text = text;
+                _textbox.Location = new Point(300, 300);
+                _textbox.Width = 200;
+                _textbox.Height = 200;
+                Controls.Add(_textbox);
             }
             else if (e.Node.Text == "PictureBox")
             {
-                pictureBox = new PictureBox();
-                pictureBox.Image = new Bitmap("image.jpg");
-                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                pictureBox.Location = new Point(450, 50);
-                pictureBox.BorderStyle = BorderStyle.Fixed3D;
-                Controls.Add(pictureBox);
+                _pictureBox = new PictureBox();
+                _pictureBox.Image = new Bitmap("image.jpg");
+                _pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                _pictureBox.Location = new Point(450, 50);
+                _pictureBox.BorderStyle = BorderStyle.Fixed3D;
+                Controls.Add(_pictureBox);
             }
         }
 
         private void Radiobuttons_Changed(object sender, EventArgs e)
         {
-            if (r2.Checked)
+            if (_r2.Checked)
             {
-                btn.Location = new Point(350, 100);
+                _btn.Location = new Point(350, 100);
             }
             else
             {
-                btn.Location = new Point(200, 100);
+                _btn.Location = new Point(200, 100);
             }
         }
 
         private void Box_lblOnCheckedChanged(object sender, EventArgs e)
         {
-            if (box_lbl.Checked)
+            if (_boxLbl.Checked)
             {
-                Controls.Add(lbl);
+                Controls.Add(_lbl);
             }
             else
             {
-                Controls.Remove(lbl);
+                Controls.Remove(_lbl);
             }
         }
 
         private void Box_btnOnCheckedChanged(object sender, EventArgs e)
         {
-            if (box_btn.Checked)
+            if (_boxBtn.Checked)
             {
-                Controls.Add(btn);
+                Controls.Add(_btn);
             }
             else
             {
-                Controls.Remove(btn);
+                Controls.Remove(_btn);
             }
         }
 
         private void BtnOnClick(object sender, EventArgs e)
         {
-            if (btn.BackColor == Color.Blue)
+            if (_btn.BackColor == Color.Blue)
             {
-                btn.BackColor = Color.Red;
-                lbl.BackColor = Color.Green;
-                lbl.ForeColor = Color.Orange;
+                _btn.BackColor = Color.Red;
+                _lbl.BackColor = Color.Green;
+                _lbl.ForeColor = Color.Orange;
             }
             else
             {
-                btn.BackColor = Color.Blue;
-                lbl.ForeColor = Color.Green;
-                lbl.BackColor = Color.Orange;
+                _btn.BackColor = Color.Blue;
+                _lbl.ForeColor = Color.Green;
+                _lbl.BackColor = Color.Orange;
             }
         }
     }

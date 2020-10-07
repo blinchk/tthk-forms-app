@@ -13,6 +13,7 @@ namespace FormsAppProg1
         private CheckBox box_lbl, box_btn;
         private RadioButton r1, r2;
         private TextBox textbox;
+        private PictureBox pictureBox;
         public Form1()
         {
             Height = 500;
@@ -58,6 +59,8 @@ namespace FormsAppProg1
             tn.Nodes.Add(new TreeNode("Radionupp-Radiobutton"));
 
             tn.Nodes.Add(new TreeNode("Tekstkast-Textbox"));
+
+            tn.Nodes.Add(new TreeNode("PictureBox"));
         }
 
         private void TreeOnAfterSelect(object sender, TreeViewEventArgs e)
@@ -106,6 +109,15 @@ namespace FormsAppProg1
                 textbox.Width = 200;
                 textbox.Height = 200;
                 Controls.Add(textbox);
+            }
+            else if (e.Node.Text == "PictureBox")
+            {
+                pictureBox = new PictureBox();
+                pictureBox.Image = new Bitmap("image.jpg");
+                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox.Location = new Point(450, 50);
+                pictureBox.BorderStyle = BorderStyle.Fixed3D;
+                Controls.Add(pictureBox);
             }
         }
 

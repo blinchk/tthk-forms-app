@@ -14,6 +14,7 @@ namespace FormsAppProg1
         private RadioButton _r1, _r2;
         private TextBox _textbox;
         private PictureBox _pictureBox;
+        private TabControl _tabControl;
         public Form1()
         {
             Height = 500;
@@ -39,7 +40,7 @@ namespace FormsAppProg1
             
             _lbl = new Label();
             _lbl.Text = "Tarkvaraarendajad";
-            _lbl.Size = new Size(150, 30);
+            _lbl.Size = new Size(100, 30);
             _lbl.Location = new Point(150, 200);
             
             tn.Nodes.Add(new TreeNode("Märkeruut-Checkbox"));
@@ -61,6 +62,8 @@ namespace FormsAppProg1
             tn.Nodes.Add(new TreeNode("Tekstkast-Textbox"));
 
             tn.Nodes.Add(new TreeNode("PictureBox"));
+
+            tn.Nodes.Add(new TreeNode("Kaart-TabControl"));
         }
 
         private void TreeOnAfterSelect(object sender, TreeViewEventArgs e)
@@ -118,6 +121,18 @@ namespace FormsAppProg1
                 _pictureBox.Location = new Point(450, 50);
                 _pictureBox.BorderStyle = BorderStyle.Fixed3D;
                 Controls.Add(_pictureBox);
+            }
+            else if (e.Node.Text == "Kaart-TabControl")
+            {
+                _tabControl = new TabControl();
+                _tabControl.Location = new Point(300, 150);
+                _tabControl.Size = new Size(200, 100);
+                string[] tabNames = new string[] {"Esimene", "Teine", "Kolmas"};
+                foreach (string tabName in tabNames)
+                {
+                    _tabControl.TabPages.Add(new TabPage(tabName));
+                }
+                Controls.Add(_tabControl);
             }
         }
 

@@ -12,10 +12,11 @@ namespace FormsAppProg1
     public partial class Form1 : Form
     {
         private MainMenu _menu;
-        private TreeView _tree;
-        private Button _btn;
-        private Label _lbl;
-        private CheckBox _boxLbl, _boxBtn;
+        private readonly TreeView _tree;
+        private readonly Button _btn;
+        private readonly Label _lbl;
+        private readonly CheckBox _boxLbl;
+        private readonly CheckBox _boxBtn;
         private RadioButton _r1, _r2;
         private TextBox _textbox;
         private PictureBox _pictureBox;
@@ -29,41 +30,51 @@ namespace FormsAppProg1
             Height = 500;
             Width = 600;
             Text = "Vorm elementidega";
-            _tree = new TreeView();
-            _tree.Dock = DockStyle.Left;
-            
+            _tree = new TreeView
+            {
+                Dock = DockStyle.Left
+            };
+
             _tree.AfterSelect += TreeOnAfterSelect;
             
             TreeNode tn = new TreeNode("Elemendid");
             
             tn.Nodes.Add(new TreeNode("Nupp-Button"));
-            
-            _btn = new Button();
-            _btn.Text = "Vajuta siia";
-            _btn.Location = new Point(200, 100);
-            _btn.Height = 40;
-            _btn.Width = 120;
+
+            _btn = new Button
+            {
+                Text = "Vajuta siia",
+                Location = new Point(200, 100),
+                Height = 40,
+                Width = 120
+            };
             _btn.Click += BtnOnClick;
             
             tn.Nodes.Add(new TreeNode("Silt-Label"));
-            
-            _lbl = new Label();
-            _lbl.Text = "Tarkvaraarendajad";
-            _lbl.Size = new Size(100, 30);
-            _lbl.Location = new Point(150, 200);
-            
+
+            _lbl = new Label
+            {
+                Text = "Tarkvaraarendajad",
+                Size = new Size(100, 30),
+                Location = new Point(150, 200)
+            };
+
             tn.Nodes.Add(new TreeNode("Märkeruut-Checkbox"));
-            
-            _boxBtn = new CheckBox();
-            _boxBtn.Text = "Näita nupp";
-            _boxBtn.Location = new Point(200, 30);
-            _boxBtn.Checked = true;
+
+            _boxBtn = new CheckBox
+            {
+                Text = "Näita nupp",
+                Location = new Point(200, 30),
+                Checked = true
+            };
             _boxBtn.CheckedChanged += Box_btnOnCheckedChanged;
-            
-            _boxLbl = new CheckBox();
-            _boxLbl.Text = "Näita silt";
-            _boxLbl.Location = new Point(150, 70);
-            _boxLbl.Checked = true;
+
+            _boxLbl = new CheckBox
+            {
+                Text = "Näita silt",
+                Location = new Point(150, 70),
+                Checked = true
+            };
             _boxLbl.CheckedChanged += Box_lblOnCheckedChanged;
             _tree.Nodes.Add(tn);
             Controls.Add(_tree);
@@ -102,14 +113,18 @@ namespace FormsAppProg1
             }
             else if (e.Node.Text == "Radionupp-Radiobutton")
             {
-                _r1 = new RadioButton();
-                _r1.Text = "Nupp vasakule";
-                _r1.Location = new Point(320, 30);
-                _r1.Checked = true;
+                _r1 = new RadioButton
+                {
+                    Text = "Nupp vasakule",
+                    Location = new Point(320, 30),
+                    Checked = true
+                };
                 _r1.CheckedChanged += Radiobuttons_Changed;
-                _r2 = new RadioButton();
-                _r2.Text = "Nupp paremale";
-                _r2.Location = new Point(320, 70);
+                _r2 = new RadioButton
+                {
+                    Text = "Nupp paremale",
+                    Location = new Point(320, 70)
+                };
                 _r2.CheckedChanged += Radiobuttons_Changed;
                 Controls.Add(_r1);
                 Controls.Add(_r2);
@@ -125,21 +140,25 @@ namespace FormsAppProg1
                 {
                     text = "Tekst puudub";
                 }
-                _textbox = new TextBox();
-                _textbox.Multiline = true;
-                _textbox.Text = text;
-                _textbox.Location = new Point(475, 400);
-                _textbox.Width = 100;
-                _textbox.Height = 100;
+                _textbox = new TextBox
+                {
+                    Multiline = true,
+                    Text = text,
+                    Location = new Point(475, 400),
+                    Width = 100,
+                    Height = 100
+                };
                 Controls.Add(_textbox);
             }
             else if (e.Node.Text == "PictureBox")
             {
-                _pictureBox = new PictureBox();
-                _pictureBox.Image = new Bitmap("image.jpg");
-                _pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                _pictureBox.Location = new Point(450, 50);
-                _pictureBox.BorderStyle = BorderStyle.Fixed3D;
+                _pictureBox = new PictureBox
+                {
+                    Image = new Bitmap("image.jpg"),
+                    SizeMode = PictureBoxSizeMode.StretchImage,
+                    Location = new Point(450, 50),
+                    BorderStyle = BorderStyle.Fixed3D
+                };
                 Controls.Add(_pictureBox);
             }
             else if (e.Node.Text == "Kaart-TabControl")
@@ -148,9 +167,11 @@ namespace FormsAppProg1
                 string selectTabInputBox = Interaction.InputBox("Sisesta mis leht tuleb avada?\nnt: 1, 2, 3", "Vali leht", "1");
                 if (_tabControl == null)
                 {
-                    _tabControl = new TabControl();
-                    _tabControl.Location = new Point(300, 150);
-                    _tabControl.Size = new Size(200, 150);
+                    _tabControl = new TabControl
+                    {
+                        Location = new Point(300, 150),
+                        Size = new Size(200, 150)
+                    };
                     string[] tabNames = new string[] {"Esimene", "Teine", "Kolmas"};
                     string[] tabImages = new string[] {"george.png", "peppa.png", "dad.png"};
                     
@@ -217,13 +238,15 @@ namespace FormsAppProg1
             {
                 DataSet dataSet = new DataSet("Näide");
                 dataSet.ReadXml("..//..//files//example.xml");
-                _dataGridView = new DataGridView();
-                _dataGridView.DataSource = dataSet;
-                _dataGridView.AutoGenerateColumns = true;
-                _dataGridView.DataMember = "email";
-                _dataGridView.Location = new Point(150, 300);
-                _dataGridView.Height = 140;
-                _dataGridView.Width = 250;
+                _dataGridView = new DataGridView
+                {
+                    DataSource = dataSet,
+                    AutoGenerateColumns = true,
+                    DataMember = "email",
+                    Location = new Point(150, 300),
+                    Height = 140,
+                    Width = 250
+                };
                 Controls.Add(_dataGridView);
             }
             else if (e.Node.Text == "Menu")

@@ -17,6 +17,7 @@ namespace FormsAppProg1
         private TextBox _textbox;
         private PictureBox _pictureBox;
         private TabControl _tabControl;
+        private ListBox _listbox;
         public Form1()
         {
             Height = 500;
@@ -68,6 +69,8 @@ namespace FormsAppProg1
             tn.Nodes.Add(new TreeNode("Kaart-TabControl"));
 
             tn.Nodes.Add(new TreeNode("MessageBox"));
+
+            tn.Nodes.Add(new TreeNode("ListBox"));
         }
 
         private void TreeOnAfterSelect(object sender, TreeViewEventArgs e)
@@ -153,7 +156,7 @@ namespace FormsAppProg1
                     Controls.Add(_tabControl);
                 }
                 
-                var pagesNumbers = Enumerable.Range(1, MAX_PAGE).Select(x => x.ToString()).ToArray(); // String values 1,2,3 using LINQ
+                var pagesNumbers = Enumerable.Range(1, MAX_PAGE).Select(x => x.ToString()).ToArray(); // String values 1, 2, 3 using LINQ
                 if (pagesNumbers.Contains(selectTabInputBox)) // Checks that user's input contains numbers 1, 2, 3
                 {
                     int receivedTabIndex = Int32.Parse(selectTabInputBox) - 1 ; // User defines tab to open using ints 1, 2, 3
@@ -181,6 +184,19 @@ namespace FormsAppProg1
                         _lbl.Height += 15;
                     }
                 }
+            }
+            else if (e.Node.Text == "ListBox")
+            {
+                _listbox = new ListBox();
+                string[] listBoxItemNames = new string[] { "Sinine", "Kolllane", "Roheline", "Punane"};
+                foreach (var listBoxItemName in listBoxItemNames)
+                {
+                    _listbox.Items.Add(listBoxItemName);
+                }
+                _listbox.Height = listBoxItemNames.Length * 20;
+                _listbox.Width = listBoxItemNames.OrderByDescending(n => n.Length).First().Length * 10;
+                _listbox.Location = new Point(350, 50);
+                Controls.Add(_listbox);
             }
         }
 

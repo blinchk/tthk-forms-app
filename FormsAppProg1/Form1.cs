@@ -11,6 +11,7 @@ namespace FormsAppProg1
 {
     public partial class Form1 : Form
     {
+        private MainMenu _menu;
         private TreeView _tree;
         private Button _btn;
         private Label _lbl;
@@ -227,12 +228,41 @@ namespace FormsAppProg1
             }
             else if (e.Node.Text == "Menu")
             {
-                MainMenu _menu = new MainMenu();
+                _menu = new MainMenu();
                 _menu.MenuItems.Add("File");
                 _menu.MenuItems.Add("Edit");
                 _menu.MenuItems[0].MenuItems.Add("Exit", new EventHandler(ExitClicked));
+                _menu.MenuItems[1].MenuItems.Add("Clear All", new EventHandler(ClearAllClicked));
+                _menu.MenuItems[1].MenuItems.Add("Change Background Color", new EventHandler(ChangeColorClicked));
+                _menu.MenuItems[1].MenuItems.Add("Change Menu Position", new EventHandler(ChangeMenuOrder));
                 Menu = _menu;
             }
+        }
+
+        private void ChangeColorClicked(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            BackColor = Color.FromArgb(rnd.Next(0, 256), rnd.Next(0, 256), rnd.Next(0, 256));
+        }
+
+        private void ClearAllClicked(object sender, EventArgs e)
+        {
+            Controls.Clear();
+            Controls.Add(_tree);
+            BackColor = DefaultBackColor;
+        }
+        
+        private void ChangeMenuOrder(object sender, EventArgs e)
+        {
+            if (_menu.RightToLeft == RightToLeft.No)
+            {
+                _menu.RightToLeft = RightToLeft.Yes;
+            }
+            else
+            {
+                _menu.RightToLeft = RightToLeft.No;
+            }
+            Menu = _menu;
         }
 
         private void ExitClicked(object sender, EventArgs e)

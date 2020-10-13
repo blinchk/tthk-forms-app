@@ -285,7 +285,7 @@ namespace FormsAppProg1
             {
                 _menu.RightToLeft = RightToLeft.No;
             }
-            Menu = _menu;
+            Refresh();
         }
 
         private void ExitClicked(object sender, EventArgs e)

@@ -1,5 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsAppProg1", "FormsAppProg1\FormsAppProg1.csproj", "{DEC24230-2C7C-430C-BFCF-FD02C424DB0E}"
 EndProject
 Global
@@ -12,5 +15,11 @@ Global
 		{DEC24230-2C7C-430C-BFCF-FD02C424DB0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEC24230-2C7C-430C-BFCF-FD02C424DB0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEC24230-2C7C-430C-BFCF-FD02C424DB0E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {42802228-350E-432A-B9DE-624B05308A88}
 	EndGlobalSection
 EndGlobal

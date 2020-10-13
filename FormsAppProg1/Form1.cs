@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -18,6 +20,7 @@ namespace FormsAppProg1
         private PictureBox _pictureBox;
         private TabControl _tabControl;
         private ListBox _listbox;
+        private DataGridView _dataGridView;
         private string[] listBoxItemNames;
         private Color[] listBoxItemColors;
         public Form1()
@@ -53,11 +56,13 @@ namespace FormsAppProg1
             _boxBtn = new CheckBox();
             _boxBtn.Text = "Näita nupp";
             _boxBtn.Location = new Point(200, 30);
+            _boxBtn.Checked = true;
             _boxBtn.CheckedChanged += Box_btnOnCheckedChanged;
             
             _boxLbl = new CheckBox();
             _boxLbl.Text = "Näita silt";
             _boxLbl.Location = new Point(150, 70);
+            _boxLbl.Checked = true;
             _boxLbl.CheckedChanged += Box_lblOnCheckedChanged;
             _tree.Nodes.Add(tn);
             Controls.Add(_tree);
@@ -73,6 +78,10 @@ namespace FormsAppProg1
             tn.Nodes.Add(new TreeNode("MessageBox"));
 
             tn.Nodes.Add(new TreeNode("ListBox"));
+
+            tn.Nodes.Add(new TreeNode("DataGridView"));
+
+            tn.Nodes.Add(new TreeNode("Menu"));
         }
 
         private void TreeOnAfterSelect(object sender, TreeViewEventArgs e)
@@ -95,6 +104,7 @@ namespace FormsAppProg1
                 _r1 = new RadioButton();
                 _r1.Text = "Nupp vasakule";
                 _r1.Location = new Point(320, 30);
+                _r1.Checked = true;
                 _r1.CheckedChanged += Radiobuttons_Changed;
                 _r2 = new RadioButton();
                 _r2.Text = "Nupp paremale";
@@ -117,9 +127,9 @@ namespace FormsAppProg1
                 _textbox = new TextBox();
                 _textbox.Multiline = true;
                 _textbox.Text = text;
-                _textbox.Location = new Point(300, 300);
-                _textbox.Width = 200;
-                _textbox.Height = 200;
+                _textbox.Location = new Point(475, 400);
+                _textbox.Width = 100;
+                _textbox.Height = 100;
                 Controls.Add(_textbox);
             }
             else if (e.Node.Text == "PictureBox")
@@ -139,7 +149,7 @@ namespace FormsAppProg1
                 {
                     _tabControl = new TabControl();
                     _tabControl.Location = new Point(300, 150);
-                    _tabControl.Size = new Size(200, 200);
+                    _tabControl.Size = new Size(200, 150);
                     string[] tabNames = new string[] {"Esimene", "Teine", "Kolmas"};
                     string[] tabImages = new string[] {"george.png", "peppa.png", "dad.png"};
                     
@@ -201,6 +211,35 @@ namespace FormsAppProg1
                 _listbox.Location = new Point(500, 100);
                 _listbox.SelectedIndexChanged += ListBoxSelectedItemChanged;
                 Controls.Add(_listbox);
+            }
+            else if (e.Node.Text == "DataGridView")
+            {
+                DataSet dataSet = new DataSet("Näide");
+                dataSet.ReadXml("..//..//files//example.xml");
+                _dataGridView = new DataGridView();
+                _dataGridView.DataSource = dataSet;
+                _dataGridView.AutoGenerateColumns = true;
+                _dataGridView.DataMember = "email";
+                _dataGridView.Location = new Point(150, 300);
+                _dataGridView.Height = 140;
+                _dataGridView.Width = 250;
+                Controls.Add(_dataGridView);
+            }
+            else if (e.Node.Text == "Menu")
+            {
+                MainMenu _menu = new MainMenu();
+                _menu.MenuItems.Add("File");
+                _menu.MenuItems.Add("Edit");
+                _menu.MenuItems[0].MenuItems.Add("Exit", new EventHandler(ExitClicked));
+                Menu = _menu;
+            }
+        }
+
+        private void ExitClicked(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Kas sa oled kindel?", "Küsimus", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                Dispose();
             }
         }
 

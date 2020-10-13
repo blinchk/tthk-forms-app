@@ -18,6 +18,8 @@ namespace FormsAppProg1
         private PictureBox _pictureBox;
         private TabControl _tabControl;
         private ListBox _listbox;
+        private string[] listBoxItemNames;
+        private Color[] listBoxItemColors;
         public Form1()
         {
             Height = 500;
@@ -188,16 +190,24 @@ namespace FormsAppProg1
             else if (e.Node.Text == "ListBox")
             {
                 _listbox = new ListBox();
-                string[] listBoxItemNames = new string[] { "Sinine", "Kolllane", "Roheline", "Punane"};
+                listBoxItemNames = new string[] { "Sinine", "Kolllane", "Roheline", "Punane" };
+                listBoxItemColors = new Color[] { Color.Blue, Color.Yellow, Color.Green, Color.Red };
                 foreach (var listBoxItemName in listBoxItemNames)
                 {
                     _listbox.Items.Add(listBoxItemName);
                 }
                 _listbox.Height = listBoxItemNames.Length * 20;
                 _listbox.Width = listBoxItemNames.OrderByDescending(n => n.Length).First().Length * 10;
-                _listbox.Location = new Point(350, 50);
+                _listbox.Location = new Point(500, 100);
+                _listbox.SelectedIndexChanged += ListBoxSelectedItemChanged;
                 Controls.Add(_listbox);
             }
+        }
+
+        private void ListBoxSelectedItemChanged(object sender, EventArgs e)
+        {
+            ListBox lb = sender as ListBox;
+            lb.BackColor = listBoxItemColors[_listbox.SelectedIndex];
         }
 
         private void Radiobuttons_Changed(object sender, EventArgs e)

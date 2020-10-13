@@ -196,7 +196,7 @@ namespace FormsAppProg1
                 {
                     _listbox.Items.Add(listBoxItemName);
                 }
-                _listbox.Height = listBoxItemNames.Length * 20;
+                _listbox.Height = listBoxItemNames.Length * 15;
                 _listbox.Width = listBoxItemNames.OrderByDescending(n => n.Length).First().Length * 10;
                 _listbox.Location = new Point(500, 100);
                 _listbox.SelectedIndexChanged += ListBoxSelectedItemChanged;
